@@ -7,4 +7,4 @@ You can convert between mass and molar fractions for a mixture of up to 4 compou
 
 The code for the project is freely available to browse in the main.py file. 
 
-To use the app, please go to my releases and launch the .exe file. 
+To use the app, please go to my releases and launch the .exe file.
