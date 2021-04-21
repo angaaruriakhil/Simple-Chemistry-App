@@ -9,6 +9,16 @@ The code for the project is freely available to browse in the main.py file in th
 
 To use the app, please download the latest version from my releases, install the CE_toolkit.exe file, and launch the main.exe file within the folder that is generated.
 
+Features that are currently in the works:
+
+- Cleaner, class based code leaning more on OOP principles
+- More calculation functionality (e.g. calculate concentrations)
+- More chemical engineering specific features (e.g. unit conversion)
+- Prettier and more logical UI/design.
+- Lighter program size.
+- SQL database of some kind to save compounds.
+- Error control.
+
 # <b>Changelog:</b>
 
 <b>v1.1</b>
