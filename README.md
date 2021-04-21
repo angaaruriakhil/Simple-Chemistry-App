@@ -9,7 +9,7 @@ The code for the project is freely available to browse in the main.py file.
 
 To use the app, please download the latest version from my releases, install the CE_toolkit.exe file, and launch the main.exe file within the folder that is generated.
 
-Changelog
+<b>Changelog:</b>
 
 <b>v1.1</b>
 
