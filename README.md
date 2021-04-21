@@ -7,4 +7,17 @@ You can convert between mass and molar fractions for a mixture of up to 4 compou
 
 The code for the project is freely available to browse in the main.py file. 
 
-To use the app, please go to my releases and launch the .exe file.
+To use the app, please download the latest version from my releases, install the CE_toolkit.exe file, and launch the main.exe file within the folder that is generated.
+
+Changelog
+
+<b>v1.1</b> 
+
+You can now specify a mole or mass basis numerically in units of mol or grams respectively.
+Smaller program size.
+
+<b>v1.0</b> 
+
+Initial release.
+
+
