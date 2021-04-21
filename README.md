@@ -11,13 +11,13 @@ To use the app, please download the latest version from my releases, install the
 
 Changelog
 
-<b>v1.1</b> 
+<u><b>v1.1</b></u>
 
-You can now specify a mole or mass basis numerically in units of mol or grams respectively.
-Smaller program size.
+-You can now specify a mole or mass basis numerically in units of mol or grams respectively.
+-Smaller program size.
 
-<b>v1.0</b> 
+<u><b>v1.0</b></u>
 
-Initial release.
+-Initial release.
 
 
