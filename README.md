@@ -15,7 +15,7 @@ Features that are currently in the works:
 - More calculation functionality (e.g. calculate concentrations)
 - More chemical engineering specific features (e.g. unit conversion)
 - Prettier and more logical UI/design.
-- SQL database of some kind to save compounds.
+- SQL database or something similar to save compounds.
 - Error control.
 
 # <b>Changelog:</b>
@@ -27,6 +27,6 @@ Features that are currently in the works:
 
 <b>v1.0</b>
 
-- Initial release.
+- Initial release. 
 
 
