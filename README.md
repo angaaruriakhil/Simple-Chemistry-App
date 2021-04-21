@@ -5,7 +5,7 @@ A small chemistry focused Windows application made by me using Python, currently
 The app displays properties (e.g. atomic mass) of the chemical elements, which are pulled from a .csv database. This is done using pandas.
 You can convert between mass and molar fractions for a mixture of up to 4 compounds using the element numerical properties such as atomic masses, which are indexed using pandas. The application then outputs a pie chart with the desired compositions. Data visualisation is done via matplotlib.
 
-The code for the project is freely available to browse in the main.py file. 
+The code for the project is freely available to browse in the main.py file in the repository for the project. 
 
 To use the app, please download the latest version from my releases, install the CE_toolkit.exe file, and launch the main.exe file within the folder that is generated.
 
