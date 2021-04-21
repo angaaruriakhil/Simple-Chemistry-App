@@ -15,7 +15,6 @@ Features that are currently in the works:
 - More calculation functionality (e.g. calculate concentrations)
 - More chemical engineering specific features (e.g. unit conversion)
 - Prettier and more logical UI/design.
-- Lighter program size.
 - SQL database of some kind to save compounds.
 - Error control.
 
