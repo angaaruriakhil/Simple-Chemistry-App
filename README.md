@@ -18,6 +18,6 @@ To use the app, please download the latest version from my releases, install the
 
 <b>v1.0</b>
 
--Initial release.
+- Initial release.
 
 
