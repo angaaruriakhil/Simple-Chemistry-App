@@ -25,26 +25,38 @@ element_list = df["Element"]
 #dropdown boxes
 options = element_list
 
-#background_image = PhotoImage(file = "molecule.png")
-#background_label = Label(root, image = background_image).grid(column =0, row = 0, columnspan = 2, rowspan =10)
-
 # mass to mole frac and vice versa
 
 
 def mass_or_mole_frac_window():
-    global background_image # if you don't declare global
-    # for second window, python thinks this is garbage or something
     top = Toplevel()
     top.title("Mass/Mole fraction conversion")
-    Label(top, text = "Welcome. \n This app will let you convert between mass or molar fractions, for a mixture of up to 4 compounds that you define. This program uses a mass basis of 100g or mole basis of 100mol. \n NOTE: If you have less than 5 elements in a compound, choose any element in the remaining slot(s) and define the number of atoms as 0. \n You must specify at least two compounds. ").grid(column=0, row=0, columnspan =4,pady =5)
+    Label(top, text = "Welcome. \n This app will let you convert between mass or molar fractions, for a mixture of up to 4 compounds that you define. \n Firstly, define your mass/molar basis using the dropdown menu on the right. If you do not have a mass/molar basis, please specify 100g or 100mol.\n NOTE: If you have less than 5 elements in a compound, choose any element in the remaining slot(s) and define the number of atoms as 0. You must specify at least two compounds. ").grid(column=0, row=0, columnspan =4,pady =25)
+
+    def mass_or_mole_basis_unit(self):
+        # This function determines what unit (grams or mol) is used for the mole/mass basis label at the top. Note .lower() method requires you to specify self as an argument.
+        global mom_basis_unit, entry_basis
+        if clicked1x.get() == "Mass Fraction":
+            mom_basis_unit = "grams"
+        else:
+            mom_basis_unit = "mol"
+        Label(top, text = "Please specify a " + clicked1x.get()[0:5].lower() + "basis in " + mom_basis_unit, pady =25).grid(column=7, row = 0)
+        entry_basis = Entry(top)
+        entry_basis.grid(column =8, row = 0) # generally good practice to apply grid on different line for an entry, otherwise you'll get a nonetype error when calling entry.get()
+
+        # DELETE IF NOT NEEDED checkbox for setting mole or mass basis
+        var_entry = IntVar()  # or int because its either a 0 or a 1 when you check a box
+        #c_box_basis = Checkbutton(top, text="Selected all elements for Compound 1?", variable=var1, command=all_selected1)
+       # c_box_basis.deselect()  # if you dont do this, then the box will be checked by default, tkinter bug
+        #c_box_basis.grid(column=5, row=3)
 
     # Starting with mass or mole fractions?
     Label(top, text="Are you starting with mass or mole fractions?").grid(column=5, row=0)
-    mass_or_mole_frac = ["Mole Fraction", "Mass Fraction"]
+    mass_or_mole_frac = ["Mole Fraction", "Mass Fraction", "Select"]
     clicked1x = StringVar()
-    clicked1x.set(mass_or_mole_frac[0])
-    drop = OptionMenu(top, clicked1x, *mass_or_mole_frac)
-    drop.grid(column = 6, row = 0)
+    clicked1x.set(mass_or_mole_frac[2])
+    drop = OptionMenu(top, clicked1x, *mass_or_mole_frac, command=mass_or_mole_basis_unit)
+    drop.grid(column=6, row=0)
 
     # Compound 1, element 1
 
@@ -339,13 +351,13 @@ def mass_or_mole_frac_window():
 
     # checkbox for selecting no third compound
     varnc3 = IntVar()  # or int because its either a 0 or a 1 when you check a box
-    c_box_nc3 = Checkbutton(top, text="I don't want to specify compound 3", variable=varnc3)
+    c_box_nc3 = Checkbutton(top, text="I don't want to specify Compound 3", variable=varnc3)
     c_box_nc3.deselect()  # if you dont do this, then the box will be checked by default, tkinter bug
     c_box_nc3.grid(column=5, row=19)
 
     # checkbox for selecting no fourth compound
     varnc4 = IntVar()  # or int because its either a 0 or a 1 when you check a box
-    c_box_nc4 = Checkbutton(top, text="I don't want to specify compound 4", variable=varnc4)
+    c_box_nc4 = Checkbutton(top, text="I don't want to specify Compound 4", variable=varnc4)
     c_box_nc4.deselect()  # if you dont do this, then the box will be checked by default, tkinter bug
     c_box_nc4.grid(column=5, row=26)
 
@@ -446,15 +458,17 @@ def mass_or_mole_frac_window():
     c_box4.deselect()  # if you dont do this, then the box will be checked by default, tkinter bug
     c_box4.grid(column=5, row=25)
 
-    # Finally, lets actually do the mass/mole fraction conversions.
-    # moles to mass first:
-    #note the below function chooses opposite of starting choice.
+
+
 
     def mass_or_mole_want():
+        # note this function chooses opposite of starting choice, as the user wants it converted.
         if clicked1x.get() == mass_or_mole_frac[1]:
             return mass_or_mole_frac[0]
         else:
             return mass_or_mole_frac[1]
+    # Finally, lets actually do the mass/mole fraction conversions.
+    # moles to mass first:
 
     def mass_mole_calc():
         last_label = Label(top, text= mass_or_mole_want() + "s of each compound are: ").grid(column=0, row=32)
@@ -464,8 +478,8 @@ def mass_or_mole_frac_window():
                 atomic_mass_compound_1 = atomic_mass_elements_compound_1[0]*float(number_of_atoms_pre[0])+atomic_mass_elements_compound_1[1]*float(number_of_atoms_pre[1])+atomic_mass_elements_compound_1[2]*float(number_of_atoms_pre[2])+atomic_mass_elements_compound_1[3]*float(number_of_atoms_pre[3])+atomic_mass_elements_compound_1[4]*float(number_of_atoms_pre[4])
                 atomic_mass_elements_compound_2 = [float(data_atom_21.loc[:, "AtomicMass"].to_string(index=False)), float(data_atom_22.loc[:, "AtomicMass"].to_string(index=False)), float(data_atom_23.loc[:, "AtomicMass"].to_string(index=False)), float(data_atom_24.loc[:, "AtomicMass"].to_string(index=False)), float(data_atom_25.loc[:, "AtomicMass"].to_string(index=False))]
                 atomic_mass_compound_2 = atomic_mass_elements_compound_2[0]*float(number_of_atoms_pre2[0])+atomic_mass_elements_compound_2[1]*float(number_of_atoms_pre2[1])+atomic_mass_elements_compound_2[2]*float(number_of_atoms_pre2[2])+atomic_mass_elements_compound_2[3]*float(number_of_atoms_pre2[3])+atomic_mass_elements_compound_2[4]*float(number_of_atoms_pre2[4])
-                compound_1_mass_calc = float(Entrymom.get())*100/atomic_mass_compound_1
-                compound_2_mass_calc = float(Entrymom2.get())*100/atomic_mass_compound_2
+                compound_1_mass_calc = float(Entrymom.get())*float(entry_basis.get())/atomic_mass_compound_1
+                compound_2_mass_calc = float(Entrymom2.get())*float(entry_basis.get())/atomic_mass_compound_2
                 total_mass = compound_1_mass_calc + compound_2_mass_calc
                 compound_1_mass_frac_calc = compound_1_mass_calc/total_mass *100
                 compound_2_mass_frac_calc = compound_2_mass_calc/total_mass *100
@@ -505,9 +519,9 @@ def mass_or_mole_frac_window():
                                      atomic_mass_elements_compound_3[2] * float(number_of_atoms_pre3[2]) + \
                                      atomic_mass_elements_compound_3[3] * float(number_of_atoms_pre3[3]) + \
                                      atomic_mass_elements_compound_3[4] * float(number_of_atoms_pre3[4])
-                compound_1_mass_calc = float(Entrymom.get())*100/atomic_mass_compound_1
-                compound_2_mass_calc = float(Entrymom2.get())*100/atomic_mass_compound_2
-                compound_3_mass_calc = float(Entrymom3.get())*100/atomic_mass_compound_3
+                compound_1_mass_calc = float(Entrymom.get())*float(entry_basis.get())/atomic_mass_compound_1
+                compound_2_mass_calc = float(Entrymom2.get())*float(entry_basis.get())/atomic_mass_compound_2
+                compound_3_mass_calc = float(Entrymom3.get())*float(entry_basis.get())/atomic_mass_compound_3
                 total_mass = compound_1_mass_calc + compound_2_mass_calc + compound_3_mass_calc
                 compound_1_mass_frac_calc = compound_1_mass_calc/total_mass *100
                 compound_2_mass_frac_calc = compound_2_mass_calc/total_mass *100
@@ -528,10 +542,10 @@ def mass_or_mole_frac_window():
                 atomic_mass_compound_3 = atomic_mass_elements_compound_3[0]*float(number_of_atoms_pre3[0])+atomic_mass_elements_compound_3[1]*float(number_of_atoms_pre3[1])+atomic_mass_elements_compound_3[2]*float(number_of_atoms_pre3[2])+atomic_mass_elements_compound_3[3]*float(number_of_atoms_pre3[3])+atomic_mass_elements_compound_3[4]*float(number_of_atoms_pre3[4])
                 atomic_mass_elements_compound_4 = [float(data_atom_41.loc[:, "AtomicMass"].to_string(index=False)), float(data_atom_42.loc[:, "AtomicMass"].to_string(index=False)), float(data_atom_43.loc[:, "AtomicMass"].to_string(index=False)), float(data_atom_44.loc[:, "AtomicMass"].to_string(index=False)), float(data_atom_45.loc[:, "AtomicMass"].to_string(index=False))]
                 atomic_mass_compound_4 = atomic_mass_elements_compound_4[0]*float(number_of_atoms_pre4[0])+atomic_mass_elements_compound_4[1]*float(number_of_atoms_pre4[1])+atomic_mass_elements_compound_4[2]*float(number_of_atoms_pre4[2])+atomic_mass_elements_compound_4[3]*float(number_of_atoms_pre4[3])+atomic_mass_elements_compound_4[4]*float(number_of_atoms_pre4[4])
-                compound_1_mass_calc = float(Entrymom.get())*100/atomic_mass_compound_1
-                compound_2_mass_calc = float(Entrymom2.get())*100/atomic_mass_compound_2
-                compound_3_mass_calc = float(Entrymom3.get())*100/atomic_mass_compound_3
-                compound_4_mass_calc = float(Entrymom4.get())*100/atomic_mass_compound_4
+                compound_1_mass_calc = float(Entrymom.get())*float(entry_basis.get())/atomic_mass_compound_1
+                compound_2_mass_calc = float(Entrymom2.get())*float(entry_basis.get())/atomic_mass_compound_2
+                compound_3_mass_calc = float(Entrymom3.get())*float(entry_basis.get())/atomic_mass_compound_3
+                compound_4_mass_calc = float(Entrymom4.get())*float(entry_basis.get())/atomic_mass_compound_4
                 total_mass = compound_1_mass_calc + compound_2_mass_calc + compound_3_mass_calc + compound_4_mass_calc
                 compound_1_mass_frac_calc = compound_1_mass_calc/total_mass *100
                 compound_2_mass_frac_calc = compound_2_mass_calc/total_mass *100
@@ -551,8 +565,8 @@ def mass_or_mole_frac_window():
                 atomic_mass_compound_1 = atomic_mass_elements_compound_1[0]*float(number_of_atoms_pre[0])+atomic_mass_elements_compound_1[1]*float(number_of_atoms_pre[1])+atomic_mass_elements_compound_1[2]*float(number_of_atoms_pre[2])+atomic_mass_elements_compound_1[3]*float(number_of_atoms_pre[3])+atomic_mass_elements_compound_1[4]*float(number_of_atoms_pre[4])
                 atomic_mass_elements_compound_2 = [float(data_atom_21.loc[:, "AtomicMass"].to_string(index=False)), float(data_atom_22.loc[:, "AtomicMass"].to_string(index=False)), float(data_atom_23.loc[:, "AtomicMass"].to_string(index=False)), float(data_atom_24.loc[:, "AtomicMass"].to_string(index=False)), float(data_atom_25.loc[:, "AtomicMass"].to_string(index=False))]
                 atomic_mass_compound_2 = atomic_mass_elements_compound_2[0]*float(number_of_atoms_pre2[0])+atomic_mass_elements_compound_2[1]*float(number_of_atoms_pre2[1])+atomic_mass_elements_compound_2[2]*float(number_of_atoms_pre2[2])+atomic_mass_elements_compound_2[3]*float(number_of_atoms_pre2[3])+atomic_mass_elements_compound_2[4]*float(number_of_atoms_pre2[4])
-                compound_1_moles_calc = float(Entrymom.get())*100*atomic_mass_compound_1
-                compound_2_moles_calc = float(Entrymom2.get())*100*atomic_mass_compound_2
+                compound_1_moles_calc = float(Entrymom.get())*float(entry_basis.get())*atomic_mass_compound_1
+                compound_2_moles_calc = float(Entrymom2.get())*float(entry_basis.get())*atomic_mass_compound_2
                 total_moles = compound_1_moles_calc + compound_2_moles_calc
                 compound_1_moles_frac_calc = compound_1_moles_calc/total_moles *100
                 compound_2_moles_frac_calc = compound_2_moles_calc/total_moles *100
@@ -593,9 +607,9 @@ def mass_or_mole_frac_window():
                                      atomic_mass_elements_compound_3[2] * float(number_of_atoms_pre3[2]) + \
                                      atomic_mass_elements_compound_3[3] * float(number_of_atoms_pre3[3]) + \
                                      atomic_mass_elements_compound_3[4] * float(number_of_atoms_pre3[4])
-                compound_1_moles_calc = float(Entrymom.get())*100*atomic_mass_compound_1
-                compound_2_moles_calc = float(Entrymom2.get())*100*atomic_mass_compound_2
-                compound_3_moles_calc = float(Entrymom3.get())*100*atomic_mass_compound_3
+                compound_1_moles_calc = float(Entrymom.get())*float(entry_basis.get())*atomic_mass_compound_1
+                compound_2_moles_calc = float(Entrymom2.get())*float(entry_basis.get())*atomic_mass_compound_2
+                compound_3_moles_calc = float(Entrymom3.get())*float(entry_basis.get())*atomic_mass_compound_3
                 total_moles = compound_1_moles_calc + compound_2_moles_calc + compound_3_moles_calc
                 compound_1_moles_frac_calc = compound_1_moles_calc/total_moles *100
                 compound_2_moles_frac_calc = compound_2_moles_calc/total_moles *100
@@ -616,10 +630,10 @@ def mass_or_mole_frac_window():
                 atomic_mass_compound_3 = atomic_mass_elements_compound_3[0]*float(number_of_atoms_pre3[0])+atomic_mass_elements_compound_3[1]*float(number_of_atoms_pre3[1])+atomic_mass_elements_compound_3[2]*float(number_of_atoms_pre3[2])+atomic_mass_elements_compound_3[3]*float(number_of_atoms_pre3[3])+atomic_mass_elements_compound_3[4]*float(number_of_atoms_pre3[4])
                 atomic_mass_elements_compound_4 = [float(data_atom_41.loc[:, "AtomicMass"].to_string(index=False)), float(data_atom_42.loc[:, "AtomicMass"].to_string(index=False)), float(data_atom_43.loc[:, "AtomicMass"].to_string(index=False)), float(data_atom_44.loc[:, "AtomicMass"].to_string(index=False)), float(data_atom_45.loc[:, "AtomicMass"].to_string(index=False))]
                 atomic_mass_compound_4 = atomic_mass_elements_compound_4[0]*float(number_of_atoms_pre4[0])+atomic_mass_elements_compound_4[1]*float(number_of_atoms_pre4[1])+atomic_mass_elements_compound_4[2]*float(number_of_atoms_pre4[2])+atomic_mass_elements_compound_4[3]*float(number_of_atoms_pre4[3])+atomic_mass_elements_compound_4[4]*float(number_of_atoms_pre4[4])
-                compound_1_moles_calc = float(Entrymom.get())*100*atomic_mass_compound_1
-                compound_2_moles_calc = float(Entrymom2.get())*100*atomic_mass_compound_2
-                compound_3_moles_calc = float(Entrymom3.get())*100*atomic_mass_compound_3
-                compound_4_moles_calc = float(Entrymom4.get())*100*atomic_mass_compound_4
+                compound_1_moles_calc = float(Entrymom.get())*entry_basis.get()*atomic_mass_compound_1
+                compound_2_moles_calc = float(Entrymom2.get())*entry_basis.get()*atomic_mass_compound_2
+                compound_3_moles_calc = float(Entrymom3.get())*entry_basis.get()*atomic_mass_compound_3
+                compound_4_moles_calc = float(Entrymom4.get())*entry_basis.get()*atomic_mass_compound_4
                 total_moles = compound_1_moles_calc + compound_2_moles_calc + compound_3_moles_calc + compound_4_moles_calc
                 compound_1_moles_frac_calc = compound_1_moles_calc/total_moles *100
                 compound_2_moles_frac_calc = compound_2_moles_calc/total_moles *100
@@ -641,7 +655,7 @@ def mass_or_mole_frac_window():
 
 
     var = IntVar()  # or int because its either a 0 or a 1 when you check a box
-    c_box5 = Checkbutton(top, text="When all compounds are defined, check this box", variable=var, command=mass_mole_calc)
+    c_box5 = Checkbutton(top, text="When all compounds are defined, check this box to convert your fractions", variable=var, command=mass_mole_calc, pady = 30)
     c_box5.deselect()  # if you dont do this, then the box will be checked by default, tkinter bug
     c_box5.grid(column=0, row=33)
 
