@@ -243,9 +243,9 @@ def mass_or_mole_frac_window():
         data_atom_4 = [df.loc[df.Element == element41.get()], df.loc[df.Element == element42.get()],
                        df.loc[df.Element == element43.get()], df.loc[df.Element == element44.get()],
                        df.loc[df.Element == element45.get()]]
-        symbols_compound_4_pre = [data_atom_4[0].loc[:, "Symbol"].to_string(index=False), data_atom_4[1].loc[:, "Symbol"].to_string(index=False),
-                                  data_atom_4[2].loc[:, "Symbol"].to_string(index=False), data_atom_4[3].loc[:, "Symbol"].to_string(index=False),
-                                  data_atom_4[4].loc[:, "Symbol"].to_string(index=False)]
+        symbols_compound_4_pre = [data_atom_4[0].loc[:, "Symbol"], data_atom_4[1].loc[:, "Symbol"],
+                                  data_atom_4[2].loc[:, "Symbol"], data_atom_4[3].loc[:, "Symbol"],
+                                  data_atom_4[4].loc[:, "Symbol"]]
         symbols_compound_4 = []
         for i in symbols_compound_4_pre:
             symbols_compound_4 += i.to_string(index=False)
