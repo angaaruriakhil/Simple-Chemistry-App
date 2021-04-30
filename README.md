@@ -27,6 +27,8 @@ Features that are currently in the works:
 - Changed illogical variable names (e.g. clicked11) to more logical ones (e.g. element11) 
 - Grouped some functions at the top of the code as opposed to the middle. (All functions should be grouped together in future).
 - Reduced line lengths to make code more legible. 
+- Fixed a nasty bug that stopped compound 4 from being properly processed, due to incompatibility of float and integer data types being multiplied together. 
+- Changed variable names that were very misleading in the mass/mole calculation/conversion functions. Now it is much more clear what is being calculated. 
 
 <b>v1.1</b>
 
