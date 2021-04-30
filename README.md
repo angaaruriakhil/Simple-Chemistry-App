@@ -22,7 +22,7 @@ Features that are currently in the works:
 
 <b>v1.2</b>
 
-- Removed some unneccesary variables by grouping them into lists and accessing via indexing, reducing complexity. 
+- Removed some unnecessary variables by grouping them into lists and accessing via indexing, reducing complexity. 
 - Fixed a nasty bug where the properties of compound 2 were getting mixed up with compound 3 (This bug was likely introduced in v1.1)
 - Changed illogical variable names (e.g. clicked11) to more logical ones (e.g. element11) 
 - Grouped some functions at the top of the code as opposed to the middle. (All functions should be grouped together in future).
