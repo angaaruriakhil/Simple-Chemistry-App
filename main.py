@@ -203,8 +203,9 @@ def mass_or_mole_frac_window():
         for i in symbols_compound_3_pre:
             symbols_compound_3 += i.to_string(index=False)
         compound3_name_str = str(symbols_compound_3[0] + number_of_atoms_3[0] + symbols_compound_3[1] +
-                                 number_of_atoms_3[1] + symbols_compound_3[2] + number_of_atoms_3[2] + symbols_compound_3[3]
-                                 + number_of_atoms_3[3] + symbols_compound_3[4] + number_of_atoms_3[4])
+                                 number_of_atoms_3[1] + symbols_compound_3[2] + number_of_atoms_3[2] +
+                                 symbols_compound_3[3] + number_of_atoms_3[3] + symbols_compound_3[4] +
+                                 number_of_atoms_3[4])
         compound3_Label = Label(top, text="Compound 3 confirmed as: " + compound3_name_str + " with a " + frac_choice.get() + " of "
                                           + mom_frac_3).grid(column=6,row=24)
 
@@ -479,7 +480,7 @@ def mass_or_mole_frac_window():
         else:
             return mass_or_mole_frac[1]
     # Finally, lets actually do the mass/mole fraction conversions.
-    # moles to mass first:
+    # Mass to mole fraction first:
 
     def mass_mole_calc():
         last_label = Label(top, text= mass_or_mole_want() + "s of each compound are: ").grid(column=0, row=32)
@@ -505,14 +506,14 @@ def mass_or_mole_frac_window():
                                          atomic_mass_elements_compound_2[2]*float(number_of_atoms_pre2[2])+\
                                          atomic_mass_elements_compound_2[3]*float(number_of_atoms_pre2[3])+\
                                          atomic_mass_elements_compound_2[4]*float(number_of_atoms_pre2[4])
-                compound_1_mass_calc = float(Entrymom.get())*float(entry_basis.get())/atomic_mass_compound_1
-                compound_2_mass_calc = float(Entrymom2.get())*float(entry_basis.get())/atomic_mass_compound_2
-                total_mass = compound_1_mass_calc + compound_2_mass_calc
-                compound_1_mass_frac_calc = compound_1_mass_calc/total_mass *100
-                compound_2_mass_frac_calc = compound_2_mass_calc/total_mass *100
-                massfrac1_label = Label(top, text = "Mass fraction of compound 1, " + compound1_name_str + " = " + str(compound_1_mass_frac_calc) + "%").grid(column = 0, row = 34)
-                massfrac2_label = Label(top,text="Mass fraction of compound 2, " + compound2_name_str + " = " + str(compound_2_mass_frac_calc) + "%").grid(column = 0, row = 36)
-                plt.pie([compound_1_mass_frac_calc, compound_2_mass_frac_calc], labels = [compound1_name_str, compound2_name_str], autopct = "%.2f %%")
+                compound_1_moles_calc = float(Entrymom.get())*float(entry_basis.get())/atomic_mass_compound_1
+                compound_2_moles_calc = float(Entrymom2.get())*float(entry_basis.get())/atomic_mass_compound_2
+                total_moles = compound_1_moles_calc + compound_2_moles_calc
+                compound_1_moles_frac_calc = compound_1_moles_calc/total_moles *100
+                compound_2_moles_frac_calc = compound_2_moles_calc/total_moles *100
+                molesfrac1_label = Label(top, text = "Mass fraction of compound 1, " + compound1_name_str + " = " + str(compound_1_moles_frac_calc) + "%").grid(column = 0, row = 34)
+                molesfrac2_label = Label(top,text="Mass fraction of compound 2, " + compound2_name_str + " = " + str(compound_2_moles_frac_calc) + "%").grid(column = 0, row = 36)
+                plt.pie([compound_1_moles_frac_calc, compound_2_moles_frac_calc], labels = [compound1_name_str, compound2_name_str], autopct = "%.2f %%")
                 plt.title(mass_or_mole_want() + " distribution for the chosen chemical mixture")
                 plt.show()
             elif varnc4.get() == 1:
@@ -546,164 +547,17 @@ def mass_or_mole_frac_window():
                                      atomic_mass_elements_compound_3[2] * float(number_of_atoms_pre3[2]) + \
                                      atomic_mass_elements_compound_3[3] * float(number_of_atoms_pre3[3]) + \
                                      atomic_mass_elements_compound_3[4] * float(number_of_atoms_pre3[4])
-                compound_1_mass_calc = float(Entrymom.get())*float(entry_basis.get())/atomic_mass_compound_1
-                compound_2_mass_calc = float(Entrymom2.get())*float(entry_basis.get())/atomic_mass_compound_2
-                compound_3_mass_calc = float(Entrymom3.get())*float(entry_basis.get())/atomic_mass_compound_3
-                total_mass = compound_1_mass_calc + compound_2_mass_calc + compound_3_mass_calc
-                compound_1_mass_frac_calc = compound_1_mass_calc/total_mass *100
-                compound_2_mass_frac_calc = compound_2_mass_calc/total_mass *100
-                compound_3_mass_frac_calc = compound_3_mass_calc/total_mass *100
-                massfrac1_label = Label(top, text = "Mass fraction of compound 1, " + compound1_name_str + " = "
-                                                    + str(compound_1_mass_frac_calc) + "%").grid(column = 0, row = 34)
-                massfrac2_label = Label(top,text="Mass fraction of compound 2, " + compound2_name_str + " = "
-                                                 + str(compound_2_mass_frac_calc) + "%").grid(column = 0, row = 36)
-                massfrac3_label = Label(top,text="Mass fraction of compound 3, " + compound3_name_str + " = "
-                                                 + str(compound_3_mass_frac_calc) + "%").grid(column = 0, row = 38)
-                plt.pie([compound_1_mass_frac_calc, compound_2_mass_frac_calc, compound_3_mass_frac_calc],
-                        labels=[compound1_name_str, compound2_name_str, compound3_name_str], autopct="%.2f %%")
-                plt.title(mass_or_mole_want() + " distribution for the chosen chemical mixture")
-                plt.show()
-            else:
-                atomic_mass_elements_compound_1 = [float(data_atom_1[0].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_1[1].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_1[2].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_1[3].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_1[4].loc[:, "AtomicMass"].to_string(index=False))]
-                atomic_mass_compound_1 = atomic_mass_elements_compound_1[0]*float(number_of_atoms_pre[0])+\
-                                         atomic_mass_elements_compound_1[1]*float(number_of_atoms_pre[1])+\
-                                         atomic_mass_elements_compound_1[2]*float(number_of_atoms_pre[2])+\
-                                         atomic_mass_elements_compound_1[3]*float(number_of_atoms_pre[3])+\
-                                         atomic_mass_elements_compound_1[4]*float(number_of_atoms_pre[4])
-                atomic_mass_elements_compound_2 = [float(data_atom_2[0].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_2[1].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_2[2].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_2[3].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_2[4].loc[:, "AtomicMass"].to_string(index=False))]
-                atomic_mass_compound_2 = atomic_mass_elements_compound_2[0]*float(number_of_atoms_pre2[0])+\
-                                         atomic_mass_elements_compound_2[1]*float(number_of_atoms_pre2[1])+\
-                                         atomic_mass_elements_compound_2[2]*float(number_of_atoms_pre2[2])+\
-                                         atomic_mass_elements_compound_2[3]*float(number_of_atoms_pre2[3])+\
-                                         atomic_mass_elements_compound_2[4]*float(number_of_atoms_pre2[4])
-                atomic_mass_elements_compound_3 = [float(data_atom_3[0].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_3[1].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_3[2].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_3[3].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_3[4].loc[:, "AtomicMass"].to_string(index=False))]
-                atomic_mass_compound_3 = atomic_mass_elements_compound_3[0]*float(number_of_atoms_pre3[0])+\
-                                         atomic_mass_elements_compound_3[1]*float(number_of_atoms_pre3[1])+\
-                                         atomic_mass_elements_compound_3[2]*float(number_of_atoms_pre3[2])+\
-                                         atomic_mass_elements_compound_3[3]*float(number_of_atoms_pre3[3])+\
-                                         atomic_mass_elements_compound_3[4]*float(number_of_atoms_pre3[4])
-                atomic_mass_elements_compound_4 = [float(data_atom_4[0].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_4[1].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_4[2].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_4[3].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_4[4].loc[:, "AtomicMass"].to_string(index=False))]
-                atomic_mass_compound_4 = atomic_mass_elements_compound_4[0]*float(number_of_atoms_pre4[0])+\
-                                         atomic_mass_elements_compound_4[1]*float(number_of_atoms_pre4[1])+\
-                                         atomic_mass_elements_compound_4[2]*float(number_of_atoms_pre4[2])+\
-                                         atomic_mass_elements_compound_4[3]*float(number_of_atoms_pre4[3])+\
-                                         atomic_mass_elements_compound_4[4]*float(number_of_atoms_pre4[4])
-                compound_1_mass_calc = float(Entrymom.get())*float(entry_basis.get())/atomic_mass_compound_1
-                compound_2_mass_calc = float(Entrymom2.get())*float(entry_basis.get())/atomic_mass_compound_2
-                compound_3_mass_calc = float(Entrymom3.get())*float(entry_basis.get())/atomic_mass_compound_3
-                compound_4_mass_calc = float(Entrymom4.get())*float(entry_basis.get())/atomic_mass_compound_4
-                total_mass = compound_1_mass_calc + compound_2_mass_calc + compound_3_mass_calc + compound_4_mass_calc
-                compound_1_mass_frac_calc = compound_1_mass_calc/total_mass *100
-                compound_2_mass_frac_calc = compound_2_mass_calc/total_mass *100
-                compound_3_mass_frac_calc = compound_3_mass_calc/total_mass *100
-                compound_4_mass_frac_calc = compound_4_mass_calc/total_mass *100
-                massfrac1_label = Label(top, text = "Mass fraction of compound 1, " + compound1_name_str + " = "
-                                                    + str(compound_1_mass_frac_calc) + "%").grid(column = 0, row = 34)
-                massfrac2_label = Label(top,text="Mass fraction of compound 2, " + compound2_name_str + " = "
-                                                 + str(compound_2_mass_frac_calc) + "%").grid(column = 0, row = 36)
-                massfrac3_label = Label(top,text="Mass fraction of compound 3, " + compound3_name_str + " = "
-                                                 + str(compound_3_mass_frac_calc) + "%").grid(column = 0, row = 38)
-                massfrac4_label = Label(top,text="Mass fraction of compound 4, " + compound4_name_str + " = "
-                                                 + str(compound_4_mass_frac_calc) + "%").grid(column = 0, row = 40)
-                plt.pie([compound_1_mass_frac_calc, compound_2_mass_frac_calc, compound_3_mass_frac_calc, compound_4_mass_frac_calc],
-                        labels=[compound1_name_str, compound2_name_str, compound3_name_str, compound4_name_str], autopct="%.2f %%")
-                plt.title(mass_or_mole_want() + " distribution for the chosen chemical mixture")
-                plt.show()
-        else: # now lets do mass fraction to mole fraction calcs
-            if varnc4.get() and varnc3.get() == 1:
-                atomic_mass_elements_compound_1 = [float(data_atom_1[0].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_1[1].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_1[2].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_1[3].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_1[4].loc[:, "AtomicMass"].to_string(index=False))]
-                atomic_mass_compound_1 = atomic_mass_elements_compound_1[0]*float(number_of_atoms_pre[0])+\
-                                         atomic_mass_elements_compound_1[1]*float(number_of_atoms_pre[1])+\
-                                         atomic_mass_elements_compound_1[2]*float(number_of_atoms_pre[2])+\
-                                         atomic_mass_elements_compound_1[3]*float(number_of_atoms_pre[3])+\
-                                         atomic_mass_elements_compound_1[4]*float(number_of_atoms_pre[4])
-                atomic_mass_elements_compound_2 = [float(data_atom_2[0].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_2[1].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_2[2].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_2[3].loc[:, "AtomicMass"].to_string(index=False)),
-                                                   float(data_atom_2[4].loc[:, "AtomicMass"].to_string(index=False))]
-                atomic_mass_compound_2 = atomic_mass_elements_compound_2[0]*float(number_of_atoms_pre2[0])+\
-                                         atomic_mass_elements_compound_2[1]*float(number_of_atoms_pre2[1])+\
-                                         atomic_mass_elements_compound_2[2]*float(number_of_atoms_pre2[2])+\
-                                         atomic_mass_elements_compound_2[3]*float(number_of_atoms_pre2[3])+\
-                                         atomic_mass_elements_compound_2[4]*float(number_of_atoms_pre2[4])
-                compound_1_moles_calc = float(Entrymom.get())*float(entry_basis.get())*atomic_mass_compound_1
-                compound_2_moles_calc = float(Entrymom2.get())*float(entry_basis.get())*atomic_mass_compound_2
-                total_moles = compound_1_moles_calc + compound_2_moles_calc
-                compound_1_moles_frac_calc = compound_1_moles_calc/total_moles *100
-                compound_2_moles_frac_calc = compound_2_moles_calc/total_moles *100
-                molefrac1_label = Label(top, text = "Mole fraction of compound 1, " + compound1_name_str + " = " +
-                                                    str(compound_1_moles_frac_calc) + "%").grid(column = 0, row = 34)
-                molefrac2_label = Label(top,text="Mole fraction of compound 2, " + compound2_name_str + " = " +
-                                                 str(compound_2_moles_frac_calc) + "%").grid(column = 0, row = 36)
-                plt.pie([compound_1_moles_frac_calc, compound_2_moles_frac_calc],
-                        labels=[compound1_name_str, compound2_name_str], autopct="%.2f %%")
-                plt.title(mass_or_mole_want() + " distribution for the chosen chemical mixture")
-                plt.show()
-            elif varnc4.get() == 1:
-                atomic_mass_elements_compound_1 = [float(data_atom_1[0].loc[:, "AtomicMass"].to_string(index=False)),
-                                                       float(data_atom_1[1].loc[:, "AtomicMass"].to_string(index=False)),
-                                                       float(data_atom_1[2].loc[:, "AtomicMass"].to_string(index=False)),
-                                                       float(data_atom_1[3].loc[:, "AtomicMass"].to_string(index=False)),
-                                                       float(data_atom_1[4].loc[:, "AtomicMass"].to_string(index=False))]
-                atomic_mass_compound_1 = atomic_mass_elements_compound_1[0] * float(number_of_atoms_pre[0]) + \
-                                     atomic_mass_elements_compound_1[1] * float(number_of_atoms_pre[1]) + \
-                                     atomic_mass_elements_compound_1[2] * float(number_of_atoms_pre[2]) + \
-                                     atomic_mass_elements_compound_1[3] * float(number_of_atoms_pre[3]) + \
-                                     atomic_mass_elements_compound_1[4] * float(number_of_atoms_pre[4])
-                atomic_mass_elements_compound_2 = [float(data_atom_2[0].loc[:, "AtomicMass"].to_string(index=False)),
-                                               float(data_atom_2[1].loc[:, "AtomicMass"].to_string(index=False)),
-                                               float(data_atom_2[2].loc[:, "AtomicMass"].to_string(index=False)),
-                                               float(data_atom_2[3].loc[:, "AtomicMass"].to_string(index=False)),
-                                               float(data_atom_2[4].loc[:, "AtomicMass"].to_string(index=False))]
-                atomic_mass_compound_2 = atomic_mass_elements_compound_2[0] * float(number_of_atoms_pre2[0]) + \
-                                     atomic_mass_elements_compound_2[1] * float(number_of_atoms_pre2[1]) + \
-                                     atomic_mass_elements_compound_2[2] * float(number_of_atoms_pre2[2]) + \
-                                     atomic_mass_elements_compound_2[3] * float(number_of_atoms_pre2[3]) + \
-                                     atomic_mass_elements_compound_2[4] * float(number_of_atoms_pre2[4])
-                atomic_mass_elements_compound_3 = [float(data_atom_3[0].loc[:, "AtomicMass"].to_string(index=False)),
-                                               float(data_atom_3[1].loc[:, "AtomicMass"].to_string(index=False)),
-                                               float(data_atom_3[2].loc[:, "AtomicMass"].to_string(index=False)),
-                                               float(data_atom_3[3].loc[:, "AtomicMass"].to_string(index=False)),
-                                               float(data_atom_3[4].loc[:, "AtomicMass"].to_string(index=False))]
-                atomic_mass_compound_3 = atomic_mass_elements_compound_3[0] * float(number_of_atoms_pre3[0]) + \
-                                     atomic_mass_elements_compound_3[1] * float(number_of_atoms_pre3[1]) + \
-                                     atomic_mass_elements_compound_3[2] * float(number_of_atoms_pre3[2]) + \
-                                     atomic_mass_elements_compound_3[3] * float(number_of_atoms_pre3[3]) + \
-                                     atomic_mass_elements_compound_3[4] * float(number_of_atoms_pre3[4])
-                compound_1_moles_calc = float(Entrymom.get())*float(entry_basis.get())*atomic_mass_compound_1
-                compound_2_moles_calc = float(Entrymom2.get())*float(entry_basis.get())*atomic_mass_compound_2
-                compound_3_moles_calc = float(Entrymom3.get())*float(entry_basis.get())*atomic_mass_compound_3
+                compound_1_moles_calc = float(Entrymom.get())*float(entry_basis.get())/atomic_mass_compound_1
+                compound_2_moles_calc = float(Entrymom2.get())*float(entry_basis.get())/atomic_mass_compound_2
+                compound_3_moles_calc = float(Entrymom3.get())*float(entry_basis.get())/atomic_mass_compound_3
                 total_moles = compound_1_moles_calc + compound_2_moles_calc + compound_3_moles_calc
                 compound_1_moles_frac_calc = compound_1_moles_calc/total_moles *100
                 compound_2_moles_frac_calc = compound_2_moles_calc/total_moles *100
                 compound_3_moles_frac_calc = compound_3_moles_calc/total_moles *100
-                molefrac1_label = Label(top,text = "Mole fraction of compound 1, " + compound1_name_str + " = " +
-                                                   str(compound_1_moles_frac_calc) + "%").grid(column = 0, row = 34)
-                molefrac2_label = Label(top,text="Mole fraction of compound 2, " + compound2_name_str + " = " +
-                                                 str(compound_2_moles_frac_calc) + "%").grid(column = 0, row = 36)
-                molefrac3_label = Label(top,text="Mole fraction of compound 3, " + compound3_name_str + " = " +
-                                                 str(compound_3_moles_frac_calc) + "%").grid(column = 0, row = 38)
+                molesfrac1_label = Label(top, text = "Mass fraction of compound 1, " + compound1_name_str + " = " + str(compound_1_moles_frac_calc) + "%").grid(column = 0, row = 34)
+                molesfrac2_label = Label(top,text="Mass fraction of compound 2, " + compound2_name_str + " = " + str(compound_2_moles_frac_calc) + "%").grid(column = 0, row = 36)
+                molesfrac3_label = Label(top,text="Mass fraction of compound 3, " + compound3_name_str + " = "
+                                                 + str(compound_3_moles_frac_calc) + "%").grid(column = 0, row = 38)
                 plt.pie([compound_1_moles_frac_calc, compound_2_moles_frac_calc, compound_3_moles_frac_calc],
                         labels=[compound1_name_str, compound2_name_str, compound3_name_str], autopct="%.2f %%")
                 plt.title(mass_or_mole_want() + " distribution for the chosen chemical mixture")
@@ -749,35 +603,169 @@ def mass_or_mole_frac_window():
                                          atomic_mass_elements_compound_4[2]*float(number_of_atoms_pre4[2])+\
                                          atomic_mass_elements_compound_4[3]*float(number_of_atoms_pre4[3])+\
                                          atomic_mass_elements_compound_4[4]*float(number_of_atoms_pre4[4])
-                compound_1_moles_calc = float(Entrymom.get())*entry_basis.get()*atomic_mass_compound_1
-                compound_2_moles_calc = float(Entrymom2.get())*entry_basis.get()*atomic_mass_compound_2
-                compound_3_moles_calc = float(Entrymom3.get())*entry_basis.get()*atomic_mass_compound_3
-                compound_4_moles_calc = float(Entrymom4.get())*entry_basis.get()*atomic_mass_compound_4
-                total_moles = compound_1_moles_calc + compound_2_moles_calc + compound_3_moles_calc + \
-                              compound_4_moles_calc
+                compound_1_moles_calc = float(Entrymom.get())*float(entry_basis.get())/atomic_mass_compound_1
+                compound_2_moles_calc = float(Entrymom2.get())*float(entry_basis.get())/atomic_mass_compound_2
+                compound_3_moles_calc = float(Entrymom3.get())*float(entry_basis.get())/atomic_mass_compound_3
+                compound_4_moles_calc = float(Entrymom4.get())*float(entry_basis.get())/atomic_mass_compound_4
+                total_moles = compound_1_moles_calc + compound_2_moles_calc + compound_3_moles_calc + compound_4_moles_calc
                 compound_1_moles_frac_calc = compound_1_moles_calc/total_moles *100
                 compound_2_moles_frac_calc = compound_2_moles_calc/total_moles *100
                 compound_3_moles_frac_calc = compound_3_moles_calc/total_moles *100
                 compound_4_moles_frac_calc = compound_4_moles_calc/total_moles *100
-                molefrac1_label = Label(top, text = "Mass fraction of compound 1, " + compound1_name_str + " = " +
-                                                    str(compound_1_moles_frac_calc) + "%").grid(column = 0, row = 34)
-                molefrac2_label = Label(top,text="Mass fraction of compound 2, " + compound2_name_str + " = " +
-                                                 str(compound_2_moles_frac_calc) + "%").grid(column = 0, row = 36)
-                molefrac3_label = Label(top,text="Mass fraction of compound 3, " + compound3_name_str + " = " +
-                                                 str(compound_3_moles_frac_calc) + "%").grid(column = 0, row = 38)
-                molefrac4_label = Label(top,text="Mass fraction of compound 4, " + compound4_name_str + " = " +
-                                                 str(compound_4_moles_frac_calc) + "%").grid(column = 0, row = 40)
-                plt.pie([compound_1_moles_frac_calc, compound_2_moles_frac_calc, compound_3_moles_frac_calc,
-                         compound_4_moles_frac_calc],
-                        labels=[compound1_name_str, compound2_name_str, compound3_name_str, compound4_name_str],
-                        autopct="%.2f %%")
+                molesfrac1_label = Label(top, text = "Mass fraction of compound 1, " + compound1_name_str + " = "
+                                                    + str(compound_1_moles_frac_calc) + "%").grid(column = 0, row = 34)
+                molesfrac2_label = Label(top,text="Mass fraction of compound 2, " + compound2_name_str + " = "
+                                                 + str(compound_2_moles_frac_calc) + "%").grid(column = 0, row = 36)
+                molesfrac3_label = Label(top,text="Mass fraction of compound 3, " + compound3_name_str + " = "
+                                                 + str(compound_3_moles_frac_calc) + "%").grid(column = 0, row = 38)
+                molesfrac4_label = Label(top,text="Mass fraction of compound 4, " + compound4_name_str + " = "
+                                                 + str(compound_4_moles_frac_calc) + "%").grid(column = 0, row = 40)
+                plt.pie([compound_1_moles_frac_calc, compound_2_moles_frac_calc, compound_3_moles_frac_calc, compound_4_moles_frac_calc], labels=[compound1_name_str, compound2_name_str, compound3_name_str, compound4_name_str], autopct="%.2f %%")
                 plt.title(mass_or_mole_want() + " distribution for the chosen chemical mixture")
                 plt.show()
-
-
-
-
-
+        elif frac_choice.get() == "Mole Fraction": # now lets do mole fraction to mass fraction calcs
+            if varnc4.get() and varnc3.get() == 1:
+                atomic_mass_elements_compound_1 = [float(data_atom_1[0].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_1[1].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_1[2].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_1[3].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_1[4].loc[:, "AtomicMass"].to_string(index=False))]
+                atomic_mass_compound_1 = atomic_mass_elements_compound_1[0]*float(number_of_atoms_pre[0])+\
+                                         atomic_mass_elements_compound_1[1]*float(number_of_atoms_pre[1])+\
+                                         atomic_mass_elements_compound_1[2]*float(number_of_atoms_pre[2])+\
+                                         atomic_mass_elements_compound_1[3]*float(number_of_atoms_pre[3])+\
+                                         atomic_mass_elements_compound_1[4]*float(number_of_atoms_pre[4])
+                atomic_mass_elements_compound_2 = [float(data_atom_2[0].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_2[1].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_2[2].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_2[3].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_2[4].loc[:, "AtomicMass"].to_string(index=False))]
+                atomic_mass_compound_2 = atomic_mass_elements_compound_2[0]*float(number_of_atoms_pre2[0])+\
+                                         atomic_mass_elements_compound_2[1]*float(number_of_atoms_pre2[1])+\
+                                         atomic_mass_elements_compound_2[2]*float(number_of_atoms_pre2[2])+\
+                                         atomic_mass_elements_compound_2[3]*float(number_of_atoms_pre2[3])+\
+                                         atomic_mass_elements_compound_2[4]*float(number_of_atoms_pre2[4])
+                compound_1_mass_calc = float(Entrymom.get())*float(entry_basis.get())*atomic_mass_compound_1
+                compound_2_mass_calc = float(Entrymom2.get())*float(entry_basis.get())*atomic_mass_compound_2
+                total_mass = compound_1_mass_calc + compound_2_mass_calc
+                compound_1_mass_frac_calc = compound_1_mass_calc/total_mass *100
+                compound_2_mass_frac_calc = compound_2_mass_calc/total_mass *100
+                massfrac1_label = Label(top, text = "Mass fraction of compound 1, " + compound1_name_str + " = " + str(compound_1_mass_frac_calc) + "%").grid(column = 0, row = 34)
+                massfrac2_label = Label(top,text="Mass fraction of compound 2, " + compound2_name_str + " = " + str(compound_2_mass_frac_calc) + "%").grid(column = 0, row = 36)
+                plt.pie([compound_1_mass_frac_calc, compound_2_mass_frac_calc], labels=[compound1_name_str, compound2_name_str], autopct="%.2f %%")
+                plt.title(mass_or_mole_want() + " distribution for the chosen chemical mixture")
+                plt.show()
+            elif varnc4.get() == 1:
+                atomic_mass_elements_compound_1 = [float(data_atom_1[0].loc[:, "AtomicMass"].to_string(index=False)),
+                                                       float(data_atom_1[1].loc[:, "AtomicMass"].to_string(index=False)),
+                                                       float(data_atom_1[2].loc[:, "AtomicMass"].to_string(index=False)),
+                                                       float(data_atom_1[3].loc[:, "AtomicMass"].to_string(index=False)),
+                                                       float(data_atom_1[4].loc[:, "AtomicMass"].to_string(index=False))]
+                atomic_mass_compound_1 = atomic_mass_elements_compound_1[0] * float(number_of_atoms_pre[0]) + \
+                                     atomic_mass_elements_compound_1[1] * float(number_of_atoms_pre[1]) + \
+                                     atomic_mass_elements_compound_1[2] * float(number_of_atoms_pre[2]) + \
+                                     atomic_mass_elements_compound_1[3] * float(number_of_atoms_pre[3]) + \
+                                     atomic_mass_elements_compound_1[4] * float(number_of_atoms_pre[4])
+                atomic_mass_elements_compound_2 = [float(data_atom_2[0].loc[:, "AtomicMass"].to_string(index=False)),
+                                               float(data_atom_2[1].loc[:, "AtomicMass"].to_string(index=False)),
+                                               float(data_atom_2[2].loc[:, "AtomicMass"].to_string(index=False)),
+                                               float(data_atom_2[3].loc[:, "AtomicMass"].to_string(index=False)),
+                                               float(data_atom_2[4].loc[:, "AtomicMass"].to_string(index=False))]
+                atomic_mass_compound_2 = atomic_mass_elements_compound_2[0] * float(number_of_atoms_pre2[0]) + \
+                                     atomic_mass_elements_compound_2[1] * float(number_of_atoms_pre2[1]) + \
+                                     atomic_mass_elements_compound_2[2] * float(number_of_atoms_pre2[2]) + \
+                                     atomic_mass_elements_compound_2[3] * float(number_of_atoms_pre2[3]) + \
+                                     atomic_mass_elements_compound_2[4] * float(number_of_atoms_pre2[4])
+                atomic_mass_elements_compound_3 = [float(data_atom_3[0].loc[:, "AtomicMass"].to_string(index=False)),
+                                               float(data_atom_3[1].loc[:, "AtomicMass"].to_string(index=False)),
+                                               float(data_atom_3[2].loc[:, "AtomicMass"].to_string(index=False)),
+                                               float(data_atom_3[3].loc[:, "AtomicMass"].to_string(index=False)),
+                                               float(data_atom_3[4].loc[:, "AtomicMass"].to_string(index=False))]
+                atomic_mass_compound_3 = atomic_mass_elements_compound_3[0] * float(number_of_atoms_pre3[0]) + \
+                                     atomic_mass_elements_compound_3[1] * float(number_of_atoms_pre3[1]) + \
+                                     atomic_mass_elements_compound_3[2] * float(number_of_atoms_pre3[2]) + \
+                                     atomic_mass_elements_compound_3[3] * float(number_of_atoms_pre3[3]) + \
+                                     atomic_mass_elements_compound_3[4] * float(number_of_atoms_pre3[4])
+                compound_1_mass_calc = float(Entrymom.get())*float(entry_basis.get())*atomic_mass_compound_1
+                compound_2_mass_calc = float(Entrymom2.get())*float(entry_basis.get())*atomic_mass_compound_2
+                compound_3_mass_calc = float(Entrymom3.get())*float(entry_basis.get())*atomic_mass_compound_3
+                total_mass = compound_1_mass_calc + compound_2_mass_calc + compound_3_mass_calc
+                compound_1_mass_frac_calc = compound_1_mass_calc/total_mass *100
+                compound_2_mass_frac_calc = compound_2_mass_calc/total_mass *100
+                compound_3_mass_frac_calc = compound_3_mass_calc/total_mass *100
+                massfrac1_label = Label(top,text = "Mole fraction of compound 1, " + compound1_name_str + " = " +
+                                                   str(compound_1_mass_frac_calc) + "%").grid(column = 0, row = 34)
+                massfrac2_label = Label(top,text="Mole fraction of compound 2, " + compound2_name_str + " = " +
+                                                 str(compound_2_mass_frac_calc) + "%").grid(column = 0, row = 36)
+                massfrac3_label = Label(top,text="Mole fraction of compound 3, " + compound3_name_str + " = " +
+                                                 str(compound_3_mass_frac_calc) + "%").grid(column = 0, row = 38)
+                plt.pie([compound_1_mass_frac_calc, compound_2_mass_frac_calc, compound_3_mass_frac_calc],
+                        labels=[compound1_name_str, compound2_name_str, compound3_name_str], autopct="%.2f %%")
+                plt.title(mass_or_mole_want() + " distribution for the chosen chemical mixture")
+                plt.show()
+            else:
+                atomic_mass_elements_compound_1 = [float(data_atom_1[0].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_1[1].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_1[2].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_1[3].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_1[4].loc[:, "AtomicMass"].to_string(index=False))]
+                atomic_mass_compound_1 = atomic_mass_elements_compound_1[0]*float(number_of_atoms_pre[0])+\
+                                         atomic_mass_elements_compound_1[1]*float(number_of_atoms_pre[1])+\
+                                         atomic_mass_elements_compound_1[2]*float(number_of_atoms_pre[2])+\
+                                         atomic_mass_elements_compound_1[3]*float(number_of_atoms_pre[3])+\
+                                         atomic_mass_elements_compound_1[4]*float(number_of_atoms_pre[4])
+                atomic_mass_elements_compound_2 = [float(data_atom_2[0].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_2[1].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_2[2].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_2[3].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_2[4].loc[:, "AtomicMass"].to_string(index=False))]
+                atomic_mass_compound_2 = atomic_mass_elements_compound_2[0]*float(number_of_atoms_pre2[0])+\
+                                         atomic_mass_elements_compound_2[1]*float(number_of_atoms_pre2[1])+\
+                                         atomic_mass_elements_compound_2[2]*float(number_of_atoms_pre2[2])+\
+                                         atomic_mass_elements_compound_2[3]*float(number_of_atoms_pre2[3])+\
+                                         atomic_mass_elements_compound_2[4]*float(number_of_atoms_pre2[4])
+                atomic_mass_elements_compound_3 = [float(data_atom_3[0].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_3[1].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_3[2].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_3[3].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_3[4].loc[:, "AtomicMass"].to_string(index=False))]
+                atomic_mass_compound_3 = atomic_mass_elements_compound_3[0]*float(number_of_atoms_pre3[0])+\
+                                         atomic_mass_elements_compound_3[1]*float(number_of_atoms_pre3[1])+\
+                                         atomic_mass_elements_compound_3[2]*float(number_of_atoms_pre3[2])+\
+                                         atomic_mass_elements_compound_3[3]*float(number_of_atoms_pre3[3])+\
+                                         atomic_mass_elements_compound_3[4]*float(number_of_atoms_pre3[4])
+                atomic_mass_elements_compound_4 = [float(data_atom_4[0].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_4[1].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_4[2].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_4[3].loc[:, "AtomicMass"].to_string(index=False)),
+                                                   float(data_atom_4[4].loc[:, "AtomicMass"].to_string(index=False))]
+                atomic_mass_compound_4 = atomic_mass_elements_compound_4[0]*float(number_of_atoms_pre4[0])+\
+                                         atomic_mass_elements_compound_4[1]*float(number_of_atoms_pre4[1])+\
+                                         atomic_mass_elements_compound_4[2]*float(number_of_atoms_pre4[2])+\
+                                         atomic_mass_elements_compound_4[3]*float(number_of_atoms_pre4[3])+\
+                                         atomic_mass_elements_compound_4[4]*float(number_of_atoms_pre4[4])
+                compound_1_mass_calc = float(Entrymom.get())*float(entry_basis.get())*atomic_mass_compound_1
+                compound_2_mass_calc = float(Entrymom2.get())*float(entry_basis.get())*atomic_mass_compound_2
+                compound_3_mass_calc = float(Entrymom3.get())*float(entry_basis.get())*atomic_mass_compound_3
+                compound_4_mass_calc = float(Entrymom4.get())*float(entry_basis.get())*atomic_mass_compound_4
+                total_mass = compound_1_mass_calc + compound_2_mass_calc + compound_3_mass_calc + \
+                              compound_4_mass_calc
+                compound_1_mass_frac_calc = compound_1_mass_calc/total_mass *100
+                compound_2_mass_frac_calc = compound_2_mass_calc/total_mass *100
+                compound_3_mass_frac_calc = compound_3_mass_calc/total_mass *100
+                compound_4_mass_frac_calc = compound_4_mass_calc/total_mass *100
+                massfrac1_label = Label(top, text = "Mass fraction of compound 1, " + compound1_name_str + " = " +
+                                                    str(compound_1_mass_frac_calc) + "%").grid(column = 0, row = 34)
+                massfrac2_label = Label(top,text="Mass fraction of compound 2, " + compound2_name_str + " = " +
+                                                 str(compound_2_mass_frac_calc) + "%").grid(column = 0, row = 36)
+                massfrac3_label = Label(top,text="Mass fraction of compound 3, " + compound3_name_str + " = " +
+                                                 str(compound_3_mass_frac_calc) + "%").grid(column = 0, row = 38)
+                massfrac4_label = Label(top,text="Mass fraction of compound 4, " + compound4_name_str + " = " +
+                                                 str(compound_4_mass_frac_calc) + "%").grid(column = 0, row = 40)
+                plt.pie([compound_1_mass_frac_calc, compound_2_mass_frac_calc, compound_3_mass_frac_calc,
+                         compound_4_mass_frac_calc], labels=[compound1_name_str, compound2_name_str, compound3_name_str, compound4_name_str], autopct="%.2f %%")
+                plt.title(mass_or_mole_want() + " distribution for the chosen chemical mixture")
+                plt.show()
 
 
     var = IntVar()  # or int because its either a 0 or a 1 when you check a box
