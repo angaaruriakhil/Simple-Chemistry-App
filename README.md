@@ -1,6 +1,6 @@
 # Chemical Engineering Toolkit
 
-A small chemistry focused Windows application made by me using Python, currently with the following functionality:
+A small chemistry focused Windows application made using Python, currently with the following functionality:
 
 The app displays properties (e.g. atomic mass) of the chemical elements, which are pulled from a .csv database. This is done using pandas.
 You can convert between mass and molar fractions for a mixture of up to 4 compounds using the element numerical properties such as atomic masses, which are indexed using pandas. The application then outputs a pie chart with the desired compositions. Data visualisation is done via matplotlib.
