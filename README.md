@@ -1,4 +1,12 @@
-# Chemical Engineering Toolkit
+# Simple-Chemistry-App
+
+**NOTE: Development of this project is now ceased.**
+
+**I made this a long time ago, when I was much less skilled in programming. 
+As a result, there is a lot of repeated code which could have been avoided by properly leveraging the 4 OOP principles.
+Tkinter also makes it difficult to design flexibly and it's nature (a downloadable app) restricts access.
+I may remake this project as a web application in the future.
+Please check out my other, more recent projects on my Github which better advertise my current skillset.** 
 
 A small chemistry focused Windows application made using Python, currently with the following functionality:
 
@@ -8,15 +16,6 @@ You can convert between mass and molar fractions for a mixture of up to 4 compou
 The code for the project is freely available to browse in the main.py file in the repository for the project. 
 
 To use the app, please download the latest version from my releases, install the CE_toolkit.exe file, and launch the main.exe file within the folder that is generated.
-
-Features that are currently in the works:
-
-- Cleaner, class based code leaning more on OOP principles
-- More calculation functionality (e.g. calculate concentrations)
-- More chemical engineering specific features (e.g. unit conversion)
-- Prettier and more logical UI/design.
-- SQL database or something similar to save compounds.
-- Error control.
 
 # <b>Changelog:</b>
 
