@@ -1,12 +1,12 @@
 # Simple-Chemistry-App
 
-**NOTE: Development of this project is now ceased.**
+**NOTICE: Development of this project is now ceased.**
 
-**I made this a long time ago, when I was much less skilled in programming. 
-As a result, there is a lot of repeated code which could have been avoided by properly leveraging the 4 OOP principles.
-Tkinter also makes it difficult to design flexibly and it's nature (a downloadable app) restricts access.
-I may remake this project as a web application in the future.
-Please check out my other, more recent projects on my Github which better advertise my current skillset.** 
+**I made this a long time ago, when I was much less skilled in programming.** 
+**As a result, there is a lot of repeated code which could have been avoided by properly leveraging the 4 OOP principles.**
+**Tkinter also makes it difficult to design flexibly and it's nature (a downloadable app) restricts access.**
+**I may remake this project as a web application in the future.**
+**Please check out my other, more recent projects on my Github which better advertise my current skillset.** 
 
 A small chemistry focused Windows application made using Python, currently with the following functionality:
 
