@@ -1,4 +1,4 @@
-# NOTICE: DEVELOPMENT FOR THIS PROJECT IS NOW CEASED
+# NOTICE: DEVELOPMENT FOR THIS PROJECT HAS CEASED
 
 **I made this a long time ago, when I was much less skilled in programming.** 
 
