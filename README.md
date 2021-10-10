@@ -1,6 +1,4 @@
-# Simple-Chemistry-App
-
-**NOTICE: Development of this project is now ceased.**
+# NOTICE: Development of this project is now ceased.
 
 **I made this a long time ago, when I was much less skilled in programming.** 
 
@@ -11,6 +9,9 @@
 **I may remake this project as a web application in the future.**
 
 **Please check out my other, more recent projects on my Github which better advertise my current skillset.** 
+
+
+## Simple-Chemistry-App
 
 A small chemistry focused Windows application made using Python, currently with the following functionality:
 
