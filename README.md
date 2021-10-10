@@ -2,7 +2,7 @@
 
 **I made this a long time ago, when I was much less skilled in programming.** 
 
-**As a result, there is a lot of repeated code which could have been avoided by properly leveraging the 4 OOP principles.**
+**Therefore, there is a lot of repeated code which could have been avoided by properly leveraging the 4 OOP principles.**
 
 **Tkinter also makes it difficult to design flexibly and it's nature (a downloadable app) restricts access.**
 
